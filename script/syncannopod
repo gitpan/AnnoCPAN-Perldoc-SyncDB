@@ -1,0 +1,63 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Getopt::Long;
+use Pod::Usage;
+use AnnoCPAN::Perldoc::SyncDB;
+
+my %opts = (
+   dest => undef,
+   src => undef,
+   verbose => 0,
+   compress => undef,
+);
+
+Getopt::Long::Configure("bundling");
+GetOptions("v|verbose"  => \$opts{verbose},
+           "d|dest"     => \$opts{dest},
+           "s|src"      => \$opts{src},
+           "c|compress" => \$opts{compress},
+           "h|help"     => \$opts{help},
+           "V|version"  => \$opts{version},
+           ) or pod2usage(1);
+pod2usage(-exitstatus => 0, -verbose => 2, -input => \*DATA) if ($opts{help});
+print("CAM::PDF v$CAM::PDF::VERSION\n"),exit(0) if ($opts{version});
+
+AnnoCPAN::Perldoc::SyncDB->run(%opts);
+
+__DATA__
+
+=head1 NAME
+
+syncannopod - Mirror the AnnoCPAN database locally
+
+=head1 SYNOPSIS
+
+syncannopod [options]
+
+ Options:
+   -s --src            URL of the database
+   -d --dest           filename for downloaded database
+   -c --compress       one of 'bz2', 'gz' or ''
+   -v --verbose        print status messages
+   -h --help           verbose help message
+   -V --version        print CAM::PDF version
+
+See the C<perldoc AnnoCPAN::Perldoc::SyncDB> for a list of the default
+values and their meanings.
+
+=head1 DESCRIPTION
+
+Mirrors an annopod.db database to the local filesystem for use with
+the annopod command.  See the modules listed below for more details.
+
+=head1 SEE ALSO
+
+L<AnnoCPAN::Perldoc::SyncDB>
+
+L<AnnoCPAN::Perldoc>
+
+=head1 AUTHOR
+
+Clotho Advanced Media Inc., I<cpan@clotho.com>
+
