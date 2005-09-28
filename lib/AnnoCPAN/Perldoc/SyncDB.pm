@@ -6,7 +6,7 @@ use LWP::UserAgent;
 use File::Spec;
 use Carp;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 # Default URL, can be overridden via package method
 my $baseurl = 'http://annocpan.org/annopod.db';

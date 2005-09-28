@@ -6,22 +6,24 @@ use Pod::Usage;
 use AnnoCPAN::Perldoc::SyncDB;
 
 my %opts = (
+   verbose => 0,
    dest => undef,
    src => undef,
-   verbose => 0,
    compress => undef,
+   help => undef,
+   version => undef,
 );
 
 Getopt::Long::Configure("bundling");
-GetOptions("v|verbose"  => \$opts{verbose},
-           "d|dest"     => \$opts{dest},
-           "s|src"      => \$opts{src},
-           "c|compress" => \$opts{compress},
-           "h|help"     => \$opts{help},
-           "V|version"  => \$opts{version},
+GetOptions("v|verbose"    => \$opts{verbose},
+           "d|dest=s"     => \$opts{dest},
+           "s|src=s"      => \$opts{src},
+           "c|compress=s" => \$opts{compress},
+           "h|help"       => \$opts{help},
+           "V|version"    => \$opts{version},
            ) or pod2usage(1);
 pod2usage(-exitstatus => 0, -verbose => 2, -input => \*DATA) if ($opts{help});
-print("CAM::PDF v$CAM::PDF::VERSION\n"),exit(0) if ($opts{version});
+print("AnnoCPAN::Perldoc::SyncDB v$AnnoCPAN::Perldoc::SyncDB::VERSION\n"),exit(0) if ($opts{version});
 
 AnnoCPAN::Perldoc::SyncDB->run(%opts);
 
@@ -36,12 +38,12 @@ syncannopod - Mirror the AnnoCPAN database locally
 syncannopod [options]
 
  Options:
-   -s --src            URL of the database
-   -d --dest           filename for downloaded database
-   -c --compress       one of 'bz2', 'gz' or ''
+   -s --src=url        URL of the database
+   -d --dest=path      filename for downloaded database
+   -c --compress=opt   one of 'bz2', 'gz' or ''
    -v --verbose        print status messages
    -h --help           verbose help message
-   -V --version        print CAM::PDF version
+   -V --version        print AnnoCPAN::Perldoc::SyncDB version
 
 See the C<perldoc AnnoCPAN::Perldoc::SyncDB> for a list of the default
 values and their meanings.

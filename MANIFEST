@@ -1,5 +1,6 @@
 index.html
 Build.PL
+ChangeLog
 lib/AnnoCPAN/Perldoc/SyncDB.pm
 LICENSE
 Makefile.PL
